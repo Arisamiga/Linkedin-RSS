@@ -12,9 +12,9 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Hello world action step
+      - name: Post Latest RSS Post to Linkedin
         uses: ./ # Uses an action in the root directory
         with:
-          feed_list: ''
-          ln_access_token: ''
-          embed_image: ''
+          feed_list: ${{ secrets.feed_list }}
+          ln_access_token: ${{ secrets.ln_access_token }}
+          embed_image: ${{ secrets.embed_image }}
