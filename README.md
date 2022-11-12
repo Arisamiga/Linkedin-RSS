@@ -58,7 +58,6 @@ Register the app in [LinkedIn Developer Network](https://developer.linkedin.com/
 
 **I suggest for your ln_access_token you use a Github Secret. (Whats a Github Secret check here https://docs.github.com/en/actions/security-guides/encrypted-secrets)**
 
-Be aware that if the post has been posted before the action will fail as it cannot post a duplicate post.
 
 Thanks to https://github.com/gfiocco/linkedin-node-api as the LinkedIn Docs are wierd..
 
