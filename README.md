@@ -22,8 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Post Latest RSS Post to Linkedin
-        uses: ./ 
+      - name: Get Latest Post / Post On Linkedin
+        uses: Arisamiga/Linkedin-RSS@master
         with:
           feed_list: # Url of RSS
           ln_access_token: # Url of LinkedIn Access Token
