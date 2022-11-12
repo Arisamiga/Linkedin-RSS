@@ -1,7 +1,7 @@
 on:   # Triggers the workflow on push or pull request events but only for the main branch
   workflow_dispatch:
 jobs:
-  hello_world_job:
+  linkedin_rss_job:
     runs-on: ubuntu-latest
     name: Post Latest RSS Post to Linkedin
     steps:
