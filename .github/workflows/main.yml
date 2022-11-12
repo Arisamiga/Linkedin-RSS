@@ -1,20 +1,17 @@
 on:   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-
   workflow_dispatch:
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Post Latest RSS Post to Linkedin
     steps:
       # To use this repository's private action,
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Hello world action step
+      - name: Post Latest RSS Post to Linkedin
         uses: ./ # Uses an action in the root directory
         with:
-          feed_list: ''
-          ln_access_token: ''
-          embed_image: ''
+          feed_list: ${{ secrets.feed_list }}
+          ln_access_token: ${{ secrets.ln_access_token }}
+          embed_image: ${{ secrets.embed_image }}
