@@ -123,6 +123,9 @@ try {
     getLinkedinId(accessToken).then(ownerId => {
         postShare(accessToken, ownerId, feed.title, feed.items[0].title, feed.items[0].link, embed_images ?? feed.items[0].link).then(r => {
             console.log(r); // status 201 signal successful posting
+            if (r.status != 201) {
+                core.setFailed("Failed to post on LinkedIn");
+            }
         }).catch(e => console.log(e));
     }).catch(e => console.log(e));
     
