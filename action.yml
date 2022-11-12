@@ -1,13 +1,15 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Linkedin-RSS'
+description: 'Post the latest post from your RSS Feed to your Linkedin'
 inputs:
   feed_list:  # Url of RSS
     description: 'RSS Link'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  ln_access_token: # Url of LinkedIn Access Token
+    description: 'LinkedIn Access Token | Can be Generated at (https://www.linkedin.com/developers/tools/oauth/)'
+    required: true
+  embed_image: # Url of embed image
+    description: 'Url Of image to be used as a embed image on the post'
+    required: false
 runs:
   using: 'node16'
   main: 'index.js'
