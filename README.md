@@ -56,10 +56,10 @@ Register the app in [LinkedIn Developer Network](https://developer.linkedin.com/
 
 # Notices
 
-**I suggest for your ln_access_token you use a Github Secret. (Whats a Github Secret check here https://docs.github.com/en/actions/security-guides/encrypted-secrets)**
+> **I suggest for your ln_access_token you use a Github Secret. (Whats a Github Secret check here https://docs.github.com/en/actions/security-guides/encrypted-secrets)**
 
 
-Thanks to https://github.com/gfiocco/linkedin-node-api as the LinkedIn Docs are wierd..
+> Thanks to https://github.com/gfiocco/linkedin-node-api as the LinkedIn Docs are wierd..
 
 ## Code and bug reporting
 You can open a issue at https://github.com/Arisamiga/Linkedin-RSS
