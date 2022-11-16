@@ -51,7 +51,7 @@ Register the app in [LinkedIn Developer Network](https://developer.linkedin.com/
 #
 
 + Once you have added your Products go to https://www.linkedin.com/developers/tools/oauth/
-+ Select "Create a new access token" and click "Create Token" Select your app and make sure you have the r_liteprofile, w_member_social scopes selected.
++ Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `r_liteprofile`, `w_member_social` scopes selected.
 + Press "Request Access Token" and you will be asked to login. After Successfully logging in you will be given your Access Token.
 
 # Notices
