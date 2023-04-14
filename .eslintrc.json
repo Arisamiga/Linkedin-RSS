@@ -9,5 +9,6 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "rules": {}
+  "rules": {},
+  "ignorePatterns": ["dist/"]
 }

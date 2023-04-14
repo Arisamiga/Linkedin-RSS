@@ -1,2 +1,5 @@
 # Ignore markdown files
 *.md
+
+# Ignore dist folder
+dist
