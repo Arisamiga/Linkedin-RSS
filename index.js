@@ -1,13 +1,13 @@
-import { getInput, setFailed } from "@actions/core";
+const core = require("@actions/core");
 const RSSParser = require("rss-parser");
 const https = require("https");
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Generic Node.js API to post on LinkedIn
 // ---------------------------------------------------------------------------------------------------------------------
-const accessToken = getInput("ln_access_token");
-const feed_list = getInput("feed_list");
-const embed_images = getInput("embed_image");
+const accessToken = core.getInput("ln_access_token");
+const feed_list = core.getInput("feed_list");
+const embed_images = core.getInput("embed_image");
 
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
@@ -132,7 +132,7 @@ try {
           .then((r) => {
             console.log(r); // status 201 signal successful posting
             if (r.status != 201) {
-              setFailed("Failed to post on LinkedIn");
+              core.setFailed("Failed to post on LinkedIn");
             }
           })
           .catch((e) => console.log(e));
@@ -147,5 +147,5 @@ try {
 
   parse(feed_list);
 } catch (error) {
-  setFailed(error.message);
+  core.setFailed(error.message);
 }
