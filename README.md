@@ -1,6 +1,11 @@
 # Linkedin-RSS
 Post the latest post from your RSS Feed to your LinkedIn Profile
 
+<a href="https://github.com/Arisamiga/Linkedin-RSS/issues">
+ <img alt="Issues" src="https://img.shields.io/github/issues/Arisamiga/Linkedin-RSS?color=0088ff" />
+</a>
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3745df43ebbe497990648d06ea0cd2fa)](https://app.codacy.com/gh/Arisamiga/Linkedin-RSS/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## How to use
 
