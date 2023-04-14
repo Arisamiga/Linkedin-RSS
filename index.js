@@ -1,6 +1,6 @@
 import { getInput, setFailed } from "@actions/core";
-import RSSParser from "rss-parser";
-import { request } from "https";
+const RSSParser = require("rss-parser");
+const https = require("https");
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Generic Node.js API to post on LinkedIn
@@ -92,7 +92,7 @@ function _request(method, hostname, path, headers, body) {
       rejectUnauthorized: false, // WARNING: accepting unauthorised end points for testing ONLY
     };
     let resBody = "";
-    let req = request(reqOpts, (res) => {
+    let req = https.request(reqOpts, (res) => {
       res.on("data", (data) => {
         resBody += data.toString("utf8");
       });
