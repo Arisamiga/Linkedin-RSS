@@ -1,19 +1,19 @@
-name: 'Linkedin-RSS'
-author: 'Arisamiga'
-description: 'Post the latest post from your RSS Feed to your Linkedin'
+name: "Linkedin-RSS"
+author: "Arisamiga"
+description: "Post the latest post from your RSS Feed to your Linkedin"
 inputs:
-  feed_list:  # Url of RSS
-    description: 'RSS Link'
+  feed_list: # Url of RSS
+    description: "RSS Link"
     required: true
   ln_access_token: # Url of LinkedIn Access Token
-    description: 'LinkedIn Access Token | Can be Generated at (https://www.linkedin.com/developers/tools/oauth/)'
+    description: "LinkedIn Access Token | Can be Generated at (https://www.linkedin.com/developers/tools/oauth/)"
     required: true
   embed_image: # Url of embed image
-    description: 'Url Of image to be used as a embed image on the post'
+    description: "Url Of image to be used as a embed image on the post"
     required: false
 runs:
-  using: 'node16'
-  main: 'index.js'
+  using: "node16"
+  main: "dist/index.js"
 branding:
-  icon: 'activity'
-  color: 'blue'
+  icon: "activity"
+  color: "blue"
