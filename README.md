@@ -1,4 +1,7 @@
 # Linkedin-RSS
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b2789167b45842fe9b8401e04299b808)](https://app.codacy.com/gh/Arisamiga/Linkedin-RSS?utm_source=github.com&utm_medium=referral&utm_content=Arisamiga/Linkedin-RSS&utm_campaign=Badge_Grade)
+
 Post the latest post from your RSS Feed to your LinkedIn Profile
 
 
