@@ -131,7 +131,11 @@ try {
         )
           .then((r) => {
             console.log(r); // status 201 signal successful posting
-            if (r.status !== 201) {
+            if (r.status === 401) {
+              core.setFailed(
+                "Failed to post on LinkedIn, please check your access token is valid"
+              );
+            } else if (r.status !== 201) {
               core.setFailed("Failed to post on LinkedIn");
             }
           })
