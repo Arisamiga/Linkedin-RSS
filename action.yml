@@ -8,9 +8,10 @@ inputs:
   ln_access_token: # Url of LinkedIn Access Token
     description: "LinkedIn Access Token | Can be Generated at (https://www.linkedin.com/developers/tools/oauth/)"
     required: true
-  embed_image: # Url of embed image
-    description: "Url Of image to be used as a embed image on the post"
+  visibility: # Visibility of the post (PUBLIC | CONNECTIONS | LOGGEDIN | CONTAINER)
+    description: "Visibility of the post"
     required: false
+    default: "PUBLIC"
 runs:
   using: "node16"
   main: "dist/index.js"

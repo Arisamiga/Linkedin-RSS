@@ -33,14 +33,22 @@ jobs:
         with:
           feed_list: # Url of RSS
           ln_access_token: # Url of LinkedIn Access Token
-          embed_image: # Url of embed image
+          visibility: # Visibility of post
 ```
 
 Add on the above `feed_list` your own RSS feed URL.
 
 Add on the above `ln_access_token` your LinkedIn Access Token.
 
-(Optional) Add a url of a image on `embed_image` that you would like to use as a image in your embed
+(Optional) Add a visibility of post on `visibility` that you would like to use as a visibility in your post. 
+
+### Options: 
+
++ CONNECTIONS - Represents 1st degree network of owner.
++ PUBLIC - Anyone can view this.
++ LOGGED_IN - Viewable by logged in members only.
++ CONTAINER - Visibility is delegated to the owner of the container entity.
+
 
 ## How to get your LinkedIn Access Token
 
