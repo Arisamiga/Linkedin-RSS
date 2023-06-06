@@ -45,24 +45,17 @@ function postShare(
     const body = {
       author: "urn:li:person:" + ownerId,
       // subject: title,
-      text: {
-        text, // max 1300 characters
-      },
+      commentary: text, // max 1300 characters
+      visibility: "PUBLIC",
       content: {
-        carousel: {
-          cards: [
-            {
-              media: {
-                landingPage: shareUrl,
-                thumbnails: [
-                  {
-                    resolvedUrl: shareThumbnailUrl,
-                  },
-                ],
-              },
-            },
-          ],
-        },
+          media: {
+            title: shareUrl,
+            // thumbnails: [
+            //   {
+            //     resolvedUrl: shareThumbnailUrl,
+            //   },
+            // ],
+          },
         title,
       },
       distribution: {
@@ -117,7 +110,6 @@ function _request(method, hostname, path, headers, body) {
     req.end();
   });
 }
-
 try {
   const parse = async (url) => {
     const feed = await new RSSParser().parseURL(url);
@@ -125,6 +117,9 @@ try {
     console.log(feed.title);
     getLinkedinId(accessToken)
       .then((ownerId) => {
+        if(embedImage) {
+          console.log("Uploading Embedding image");
+        }
         postShare(
           accessToken,
           ownerId,
