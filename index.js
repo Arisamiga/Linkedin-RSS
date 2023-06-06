@@ -50,7 +50,7 @@ function postShare(
           title: shareUrl+ "e",
           thumbnails: [
             {
-              resolvedUrl: shareThumbnailUrl+ "e",
+              resolvedUrl: "eeeee",
             },
           ],
         },
