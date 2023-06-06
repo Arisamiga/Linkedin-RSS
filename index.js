@@ -45,7 +45,7 @@ function postShare(
     const method = "POST";
     const body = {
       author: "urn:li:person:" + ownerId,
-      commentary: text, // max 1300 characters
+      commentary: text + "a", // max 1300 characters
       visibility: visibilityPost,
       content: {
         media: {
