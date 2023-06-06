@@ -8,7 +8,6 @@ const https = require("https");
 const accessToken = core.getInput("ln_access_token");
 const feedList = core.getInput("feed_list");
 const embedImage = core.getInput("embed_image");
-const visibilityPost = core.getInput("visibility");
 
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
@@ -45,14 +44,13 @@ function postShare(
     const method = "POST";
     const body = {
       author: "urn:li:person:" + ownerId,
-      commentary: text + "a", // max 1300 characters
-      visibility: visibilityPost,
+      commentary: text + "e", // max 1300 characters
       content: {
         media: {
-          title: shareUrl+ "a",
+          title: shareUrl+ "e",
           thumbnails: [
             {
-              resolvedUrl: shareThumbnailUrl+ "a",
+              resolvedUrl: shareThumbnailUrl+ "e",
             },
           ],
         },

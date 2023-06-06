@@ -11,10 +11,6 @@ inputs:
   embed_image: # Url of embed image
     description: "Url Of image to be used as a embed image on the post"
     required: false
-  visibility: # Visibility of the post (PUBLIC | CONNECTIONS | LOGGEDIN | CONTAINER)
-    description: "Visibility of the post"
-    required: false
-    default: "PUBLIC"
 runs:
   using: "node16"
   main: "dist/index.js"
