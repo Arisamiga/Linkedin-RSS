@@ -69,6 +69,7 @@ function postShare(
       "Content-Type": "application/json",
       "x-li-format": "json",
       "Content-Length": Buffer.byteLength(JSON.stringify(body)),
+      "LinkedIn-Version": "202305",
     };
     _request(method, hostname, path, headers, JSON.stringify(body))
       .then((r) => {
