@@ -47,7 +47,7 @@ function postShare(
       commentary: text + "e", // max 1300 characters
       content: {
         media: {
-          title: shareUrl+ "e",
+          title: "e",
           thumbnails: [
             {
               resolvedUrl: "eeeee",
