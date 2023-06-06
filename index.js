@@ -44,13 +44,13 @@ function postShare(
     const method = "POST";
     const body = {
       author: "urn:li:person:" + ownerId,
-      commentary: text + "e", // max 1300 characters
+      commentary: text, // max 1300 characters
       content: {
         media: {
-          title: "e",
+          title: shareUrl,
           thumbnails: [
             {
-              resolvedUrl: "eeeee",
+              resolvedUrl: shareThumbnailUrl,
             },
           ],
         },
