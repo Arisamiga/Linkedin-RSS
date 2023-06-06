@@ -7,6 +7,7 @@ const https = require("https");
 // ---------------------------------------------------------------------------------------------------------------------
 const accessToken = core.getInput("ln_access_token");
 const feedList = core.getInput("feed_list");
+const embedImage = core.getInput("embed_image");
 const visibilityPost = core.getInput("visibility");
 
 // Get LinkedIn ID, i.e. ownerId
@@ -30,7 +31,14 @@ function getLinkedinId(accessToken) {
 }
 
 // Publish content on LinkedIn
-function postShare(accessToken, ownerId, title, text, shareUrl) {
+function postShare(
+  accessToken,
+  ownerId,
+  title,
+  text,
+  shareUrl,
+  shareThumbnailUrl
+) {
   return new Promise((resolve, reject) => {
     const hostname = "api.linkedin.com";
     const path = "/v2/posts";
@@ -42,6 +50,11 @@ function postShare(accessToken, ownerId, title, text, shareUrl) {
       content: {
         media: {
           title: shareUrl,
+          thumbnails: [
+            {
+              resolvedUrl: shareThumbnailUrl,
+            },
+          ],
         },
         title,
       },
@@ -110,7 +123,8 @@ try {
           ownerId,
           feed.title,
           feed.items[0].title,
-          feed.items[0].link
+          feed.items[0].link,
+          embedImage ?? feed.items[0].link
         )
           .then((r) => {
             console.log(r); // status 201 signal successful posting

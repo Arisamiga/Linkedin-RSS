@@ -14,4 +14,5 @@ jobs:
         with:
           feed_list: ${{ secrets.feed_list }}
           ln_access_token: ${{ secrets.ln_access_token }}
+          embed_image: ${{ secrets.embed_image }}
           visibility: ${{ secrets.visibility }}
