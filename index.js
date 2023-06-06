@@ -40,25 +40,29 @@ function postShare(
 ) {
   return new Promise((resolve, reject) => {
     const hostname = "api.linkedin.com";
-    const path = "/v2/shares";
+    const path = "/v2/posts";
     const method = "POST";
     const body = {
-      owner: "urn:li:person:" + ownerId,
-      subject: title,
+      author: "urn:li:person:" + ownerId,
+      // subject: title,
       text: {
         text, // max 1300 characters
       },
       content: {
-        contentEntities: [
-          {
-            entityLocation: shareUrl,
-            thumbnails: [
-              {
-                resolvedUrl: shareThumbnailUrl,
+        carousel: {
+          cards: [
+            {
+              media: {
+                landingPage: shareUrl,
+                thumbnails: [
+                  {
+                    resolvedUrl: shareThumbnailUrl,
+                  },
+                ],
               },
-            ],
-          },
-        ],
+            },
+          ],
+        },
         title,
       },
       distribution: {
