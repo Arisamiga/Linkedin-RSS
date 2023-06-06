@@ -48,14 +48,14 @@ function postShare(
       commentary: text, // max 1300 characters
       visibility: "PUBLIC",
       content: {
-          media: {
-            title: shareUrl,
-            // thumbnails: [
-            //   {
-            //     resolvedUrl: shareThumbnailUrl,
-            //   },
-            // ],
-          },
+        media: {
+          title: shareUrl,
+          // thumbnails: [
+          //   {
+          //     resolvedUrl: shareThumbnailUrl,
+          //   },
+          // ],
+        },
         title,
       },
       distribution: {
@@ -117,7 +117,7 @@ try {
     console.log(feed.title);
     getLinkedinId(accessToken)
       .then((ownerId) => {
-        if(embedImage) {
+        if (embedImage) {
           console.log("Uploading Embedding image");
         }
         postShare(
