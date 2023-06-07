@@ -10426,7 +10426,7 @@ function postShare(
 ) {
   return new Promise((resolve, reject) => {
     const hostname = "api.linkedin.com";
-    const path = "/v2/posts";
+    const path = "/rest/posts";
     const method = "POST";
     const body = {
       author: "urn:li:person:" + ownerId,
@@ -10445,6 +10445,7 @@ function postShare(
         thirdPartyDistributionChannels: [],
       },
       lifecycleState: "PUBLISHED",
+      isReshareDisabledByAuthor: false,
     };
     const headers = {
       Authorization: "Bearer " + accessToken,
