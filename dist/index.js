@@ -10333,7 +10333,7 @@ const https = __nccwpck_require__(5687);
 // ---------------------------------------------------------------------------------------------------------------------
 const accessToken = core.getInput("ln_access_token");
 const feedList = core.getInput("feed_list");
-const embedImage = core.getInput("embed_image");
+let embedImage = core.getInput("embed_image");
 
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
@@ -10355,6 +10355,62 @@ function getLinkedinId(accessToken) {
   });
 }
 
+// Initiate image upload on LinkedIn
+function initiateImageUpload(accessToken, ownerId) {
+  return new Promise((resolve, reject) => {
+    const hostname = "api.linkedin.com";
+    const path = "/rest/images?action=initializeUpload";
+    const method = "POST";
+    const body = {
+      initializeUploadRequest: {
+        owner: "urn:li:person:" + ownerId,
+      },
+    };
+    const headers = {
+      Authorization: "Bearer " + accessToken,
+      "cache-control": "no-cache",
+      "X-Restli-Protocol-Version": "2.0.0",
+      "Content-Type": "application/json",
+      "LinkedIn-Version": "202305",
+    };
+    _request(method, hostname, path, headers, JSON.stringify(body))
+      .then((r) => {
+        resolve(r);
+      })
+      .catch((e) => reject(e));
+  });
+}
+
+// Upload image to LinkedIn
+function uploadImageLinkedin(accessToken, embedImage, ownerId) {
+  return new Promise((resolve, reject) => {
+    initiateImageUpload(accessToken, ownerId)
+      .then((r) => {
+        const uploadTarget = JSON.parse(r.body).value.uploadUrl;
+        const imageID = JSON.parse(r.body).value.image;
+        const method = "POST";
+        const headers = {
+          Authorization: "Bearer " + accessToken,
+          "cache-control": "no-cache",
+          "X-Restli-Protocol-Version": "2.0.0",
+          "Content-Type": "image/png",
+          "x-li-format": "json",
+          "Content-Length": Buffer.byteLength(embedImage),
+          "LinkedIn-Version": "202305",
+        };
+        _request(method, uploadTarget, headers, embedImage)
+          .then((e) => {
+            if (e.status !== 201) {
+              reject(e);
+            }
+            resolve(imageID);
+          })
+          .catch((e) => reject(e));
+      })
+      .catch((e) => reject(e));
+  });
+}
+
 // Publish content on LinkedIn
 function postShare(
   accessToken,
@@ -10371,12 +10427,11 @@ function postShare(
     const body = {
       author: "urn:li:person:" + ownerId,
       commentary: text, // max 1300 characters
+      contentLandingPage: shareUrl,
       content: {
-        article: {
-          source: shareUrl,
-          thumbnail: shareThumbnailUrl,
+        media: {
           title: blogTitle,
-          description: text,
+          id: shareThumbnailUrl,
         },
       },
     };
@@ -10436,6 +10491,13 @@ try {
     console.log(feed.title);
     getLinkedinId(accessToken)
       .then((ownerId) => {
+        if (embedImage) {
+          uploadImageLinkedin(accessToken, embedImage, ownerId).then(
+            (imageID) => {
+              embedImage = imageID;
+            }
+          );
+        }
         postShare(
           accessToken,
           ownerId,
