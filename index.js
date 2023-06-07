@@ -46,13 +46,11 @@ function postShare(
       author: "urn:li:person:" + ownerId,
       commentary: text, // max 1300 characters
       content: {
-        media: {
-          article: {
-            source: shareUrl,
-            thumbnail: shareThumbnailUrl,
-            title: blogTitle,
-            description: text,
-          },
+        article: {
+          source: shareUrl,
+          thumbnail: shareThumbnailUrl,
+          title: blogTitle,
+          description: text,
         },
       },
     };
