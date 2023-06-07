@@ -10366,25 +10366,20 @@ function postShare(
 ) {
   return new Promise((resolve, reject) => {
     const hostname = "api.linkedin.com";
-    const path = "/v2/shares";
+    const path = "/v2/posts";
     const method = "POST";
     const body = {
-      owner: "urn:li:person:" + ownerId,
-      subject: title,
-      text: {
-        text, // max 1300 characters
-      },
+      author: "urn:li:person:" + ownerId,
+      commentary: text, // max 1300 characters
       content: {
-        contentEntities: [
-          {
-            entityLocation: shareUrl,
-            thumbnails: [
-              {
-                resolvedUrl: shareThumbnailUrl,
-              },
-            ],
-          },
-        ],
+        media: {
+          title: shareUrl,
+          thumbnails: [
+            {
+              resolvedUrl: shareThumbnailUrl,
+            },
+          ],
+        },
         title,
       },
       distribution: {
@@ -10398,6 +10393,7 @@ function postShare(
       "Content-Type": "application/json",
       "x-li-format": "json",
       "Content-Length": Buffer.byteLength(JSON.stringify(body)),
+      "LinkedIn-Version": "202305",
     };
     _request(method, hostname, path, headers, JSON.stringify(body))
       .then((r) => {
@@ -10439,7 +10435,6 @@ function _request(method, hostname, path, headers, body) {
     req.end();
   });
 }
-
 try {
   const parse = async (url) => {
     const feed = await new RSSParser().parseURL(url);
