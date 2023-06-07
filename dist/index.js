@@ -10387,6 +10387,10 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
     initiateImageUpload(accessToken, ownerId)
       .then((r) => {
         const uploadTarget = JSON.parse(r.body).value.uploadUrl;
+        const uploadTargetParts = uploadTarget.split("/");
+        const hostname = uploadTargetParts[2];
+        const path = "/" + uploadTargetParts.slice(3).join("/");
+
         const imageID = JSON.parse(r.body).value.image;
         const method = "POST";
         const headers = {
@@ -10398,7 +10402,7 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
           "Content-Length": Buffer.byteLength(embedImage),
           "LinkedIn-Version": "202305",
         };
-        _request(method, uploadTarget, "", headers, embedImage)
+        _request(method, hostname, path, headers, embedImage)
           .then((e) => {
             if (e.status !== 201) {
               reject(e);
