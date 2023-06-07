@@ -10381,9 +10381,6 @@ function postShare(
           },
         },
       },
-      distribution: {
-        linkedInDistributionTarget: {},
-      },
     };
     const headers = {
       Authorization: "Bearer " + accessToken,
