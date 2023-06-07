@@ -175,11 +175,15 @@ try {
         if (embedImage) {
           uploadImageLinkedin(accessToken, embedImage, ownerId).then(
             (imageID) => {
-              if(!imageID) {
-                return core.setFailed("Failed to upload image to LinkedIn: No image ID returned");
+              if (!imageID) {
+                return core.setFailed(
+                  "Failed to upload image to LinkedIn: No image ID returned"
+                );
               }
-              if(!imageID.startsWith("urn:")) {
-                return core.setFailed("Failed to upload image to LinkedIn: Image doesn't start with urn:");
+              if (!imageID.startsWith("urn:")) {
+                return core.setFailed(
+                  "Failed to upload image to LinkedIn: Image doesn't start with urn:"
+                );
               }
               postShare(
                 accessToken,
