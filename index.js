@@ -177,8 +177,8 @@ try {
     getLinkedinId(accessToken)
       .then((ownerId) => {
         if (embedImage) {
-          uploadImageLinkedin(accessToken, embedImage, ownerId).then(
-            (imageID) => {
+          uploadImageLinkedin(accessToken, embedImage, ownerId)
+            .then((imageID) => {
               if (!imageID) {
                 return core.setFailed(
                   "Failed to upload image to LinkedIn: No image ID returned"
@@ -208,8 +208,8 @@ try {
                   }
                 })
                 .catch((e) => console.log(e));
-            }
-          );
+            })
+            .catch((e) => console.log(e));
           return;
         }
         postShare(
