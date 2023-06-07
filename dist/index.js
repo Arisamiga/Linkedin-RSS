@@ -10387,11 +10387,7 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
     initiateImageUpload(accessToken, ownerId)
       .then((r) => {
         const uploadTarget = encodeURI(JSON.parse(r.body).value.uploadUrl);
-        if (!JSON.parse(r.body).value.uploadUrl) {
-          return core.setFailed(
-            "Failed to upload image to LinkedIn: No upload target returned"
-          );
-        }
+        console.log("uploadTarget: " + uploadTarget);
         const imageID = JSON.parse(r.body).value.image;
         const method = "POST";
         const headers = {
