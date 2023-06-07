@@ -60,7 +60,10 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
   return new Promise((resolve, reject) => {
     initiateImageUpload(accessToken, ownerId)
       .then((r) => {
-        const uploadTarget = JSON.parse(r.body).value.uploadUrl;
+        const uploadTarget = JSON.parse(r.body).value.uploadUrl.replace(
+          /\\/g,
+          ""
+        );
         const imageID = JSON.parse(r.body).value.image;
         const method = "POST";
         const headers = {
