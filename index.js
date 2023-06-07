@@ -33,7 +33,7 @@ function getLinkedinId(accessToken) {
 function postShare(
   accessToken,
   ownerId,
-  title,
+  blogTitle,
   text,
   shareUrl,
   shareThumbnailUrl
@@ -47,14 +47,13 @@ function postShare(
       commentary: text, // max 1300 characters
       content: {
         media: {
-          title: shareUrl,
-          thumbnails: [
-            {
-              resolvedUrl: shareThumbnailUrl,
-            },
-          ],
+          article: {
+            source: shareUrl,
+            thumbnail: shareThumbnailUrl,
+            title: blogTitle,
+            description: text,
+          },
         },
-        title,
       },
       distribution: {
         linkedInDistributionTarget: {},
