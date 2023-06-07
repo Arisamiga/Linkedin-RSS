@@ -10333,7 +10333,7 @@ const https = __nccwpck_require__(5687);
 // ---------------------------------------------------------------------------------------------------------------------
 const accessToken = core.getInput("ln_access_token");
 const feedList = core.getInput("feed_list");
-let embedImage = core.getInput("embed_image");
+const embedImage = core.getInput("embed_image");
 
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
@@ -10434,6 +10434,12 @@ function postShare(
           id: shareThumbnailUrl,
         },
       },
+      distribution: {
+        feedDistribution: "MAIN_FEED",
+        targetEntities: [],
+        thirdPartyDistributionChannels: [],
+      },
+      lifecycleState: "PUBLISHED",
     };
     const headers = {
       Authorization: "Bearer " + accessToken,
@@ -10494,7 +10500,25 @@ try {
         if (embedImage) {
           uploadImageLinkedin(accessToken, embedImage, ownerId).then(
             (imageID) => {
-              embedImage = imageID;
+              postShare(
+                accessToken,
+                ownerId,
+                feed.title,
+                feed.items[0].title,
+                feed.items[0].link,
+                imageID
+              )
+                .then((r) => {
+                  console.log(r); // status 201 signal successful posting
+                  if (r.status === 401) {
+                    core.setFailed(
+                      "Failed to post on LinkedIn, please check your access token is valid"
+                    );
+                  } else if (r.status !== 201) {
+                    core.setFailed("Failed to post on LinkedIn");
+                  }
+                })
+                .catch((e) => console.log(e));
             }
           );
         }
