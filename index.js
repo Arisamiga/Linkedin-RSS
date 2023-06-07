@@ -114,7 +114,7 @@ function postShare(
         },
       },
       distribution: {
-        feedDistribution: "MAIN_FEED",
+        feedDistribution: "NONE",
         targetEntities: [],
         thirdPartyDistributionChannels: [],
       },
