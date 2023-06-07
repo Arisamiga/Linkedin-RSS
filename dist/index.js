@@ -10372,12 +10372,12 @@ function postShare(
       author: "urn:li:person:" + ownerId,
       commentary: text, // max 1300 characters
       content: {
-          article: {
-            source: shareUrl,
-            thumbnail: shareThumbnailUrl,
-            title: blogTitle,
-            description: text,
-          },
+        article: {
+          source: shareUrl,
+          thumbnail: shareThumbnailUrl,
+          title: blogTitle,
+          description: text,
+        },
       },
     };
     const headers = {
