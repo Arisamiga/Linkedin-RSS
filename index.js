@@ -83,7 +83,7 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
             }
             resolve(imageID);
           })
-          .catch((e) => reject(e));
+          .catch((e) => console.log(e));
       })
       .catch((e) => reject(e));
   });
@@ -107,12 +107,6 @@ function postShare(
       commentary: text, // max 1300 characters
       contentLandingPage: shareUrl,
       visibility: "PUBLIC",
-      // content: {
-      //   media: {
-      //     title: blogTitle,
-      //     id: shareThumbnailUrl,
-      //   },
-      // },
       distribution: {
         feedDistribution: "MAIN_FEED",
         targetEntities: [],
@@ -130,6 +124,15 @@ function postShare(
       "Content-Length": Buffer.byteLength(JSON.stringify(body)),
       "LinkedIn-Version": "202305",
     };
+    if (shareThumbnailUrl) {
+      body.content = {
+        media: {
+          title: blogTitle,
+          id: shareThumbnailUrl,
+        },
+      };
+    }
+
     _request(method, hostname, path, headers, JSON.stringify(body))
       .then((r) => {
         resolve(r);
@@ -218,8 +221,7 @@ try {
           ownerId,
           feed.title,
           feed.items[0].title,
-          feed.items[0].link,
-          embedImage ?? feed.items[0].link
+          feed.items[0].link
         )
           .then((r) => {
             console.log(r); // status 201 signal successful posting
