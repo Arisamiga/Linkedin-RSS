@@ -10433,12 +10433,12 @@ function postShare(
       commentary: text, // max 1300 characters
       contentLandingPage: shareUrl,
       visibility: "PUBLIC",
-      content: {
-        media: {
-          title: blogTitle,
-          // id: shareThumbnailUrl,
-        },
-      },
+      // content: {
+      //   media: {
+      //     title: blogTitle,
+      //     id: shareThumbnailUrl,
+      //   },
+      // },
       distribution: {
         feedDistribution: "MAIN_FEED",
         targetEntities: [],
