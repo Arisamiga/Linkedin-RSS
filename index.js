@@ -115,6 +115,14 @@ function postShare(
       lifecycleState: "PUBLISHED",
       isReshareDisabledByAuthor: false,
     };
+    if (shareThumbnailUrl) {
+      body.content = {
+        media: {
+          title: blogTitle,
+          id: shareThumbnailUrl,
+        },
+      };
+    }
     const headers = {
       Authorization: "Bearer " + accessToken,
       "cache-control": "no-cache",
@@ -124,14 +132,6 @@ function postShare(
       "Content-Length": Buffer.byteLength(JSON.stringify(body)),
       "LinkedIn-Version": "202305",
     };
-    if (shareThumbnailUrl) {
-      body.content = {
-        media: {
-          title: blogTitle,
-          id: shareThumbnailUrl,
-        },
-      };
-    }
 
     _request(method, hostname, path, headers, JSON.stringify(body))
       .then((r) => {
