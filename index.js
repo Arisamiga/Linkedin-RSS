@@ -110,7 +110,7 @@ function postShare(
       content: {
         media: {
           title: blogTitle,
-          id: shareThumbnailUrl,
+          // id: shareThumbnailUrl,
         },
       },
       distribution: {
