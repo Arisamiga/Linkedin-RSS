@@ -10404,6 +10404,7 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
         };
         _request(method, hostname, path, headers, embedImage)
           .then((e) => {
+            console.log(e);
             if (e.status !== 201) {
               reject(e);
             }
