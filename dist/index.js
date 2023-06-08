@@ -10411,7 +10411,7 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
           })
           .catch((e) => console.log(e));
       })
-      .catch((e) => reject(e));
+      .catch((e) => console.log(e));
   });
 }
 
