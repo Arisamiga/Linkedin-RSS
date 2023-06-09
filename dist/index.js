@@ -10392,7 +10392,7 @@ function uploadImageLinkedin(accessToken, image, ownerId) {
         const path = "/" + uploadTargetParts.slice(3).join("/");
 
         const imageID = JSON.parse(r.body).value.image;
-        const method = "PUT";
+        const method = "POST";
         const headers = {
           Authorization: "Bearer " + accessToken,
           "cache-control": "no-cache",
@@ -10408,6 +10408,7 @@ function uploadImageLinkedin(accessToken, image, ownerId) {
             if (e.status !== 201) {
               reject(e);
             }
+            console.log("ImgID: " + imageID);
             resolve(imageID);
           })
           .catch((e) => console.log(e));
