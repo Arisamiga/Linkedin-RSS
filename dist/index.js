@@ -10460,6 +10460,7 @@ function postShare(
       },
       lifecycleState: "PUBLISHED",
       isReshareDisabledByAuthor: false,
+      shareMediaCategory: "IMAGE",
     };
     if (shareThumbnailUrl) {
       body.content = {
