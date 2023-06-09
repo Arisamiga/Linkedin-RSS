@@ -10416,6 +10416,25 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
   });
 }
 
+// Get Image from URL
+function getUrlImage(url) {
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, (res) => {
+        let data = "";
+        res.on("data", (chunk) => {
+          data += chunk;
+        });
+        res.on("end", () => {
+          resolve(data);
+        });
+      })
+      .on("error", (err) => {
+        reject(err);
+      });
+  });
+}
+
 // Publish content on LinkedIn
 function postShare(
   accessToken,
@@ -10508,35 +10527,39 @@ try {
     getLinkedinId(accessToken)
       .then((ownerId) => {
         if (embedImage) {
-          uploadImageLinkedin(accessToken, embedImage, ownerId)
-            .then((imageID) => {
-              if (!imageID) {
-                return core.setFailed(
-                  "Failed to upload image to LinkedIn: No image ID returned"
-                );
-              }
-              if (!imageID.startsWith("urn:")) {
-                return core.setFailed(
-                  "Failed to upload image to LinkedIn: Image doesn't start with urn:"
-                );
-              }
-              postShare(
-                accessToken,
-                ownerId,
-                feed.title,
-                feed.items[0].title,
-                feed.items[0].link,
-                imageID
-              )
-                .then((r) => {
-                  console.log(r); // status 201 signal successful posting
-                  if (r.status === 401) {
-                    core.setFailed(
-                      "Failed to post on LinkedIn, please check your access token is valid"
+          getUrlImage(embedImage)
+            .then((embedImage) => {
+              uploadImageLinkedin(accessToken, embedImage, ownerId)
+                .then((imageID) => {
+                  if (!imageID) {
+                    return core.setFailed(
+                      "Failed to upload image to LinkedIn: No image ID returned"
                     );
-                  } else if (r.status !== 201) {
-                    core.setFailed("Failed to post on LinkedIn");
                   }
+                  if (!imageID.startsWith("urn:")) {
+                    return core.setFailed(
+                      "Failed to upload image to LinkedIn: Image doesn't start with urn:"
+                    );
+                  }
+                  postShare(
+                    accessToken,
+                    ownerId,
+                    feed.title,
+                    feed.items[0].title,
+                    feed.items[0].link,
+                    imageID
+                  )
+                    .then((r) => {
+                      console.log(r); // status 201 signal successful posting
+                      if (r.status === 401) {
+                        core.setFailed(
+                          "Failed to post on LinkedIn, please check your access token is valid"
+                        );
+                      } else if (r.status !== 201) {
+                        core.setFailed("Failed to post on LinkedIn");
+                      }
+                    })
+                    .catch((e) => console.log(e));
                 })
                 .catch((e) => console.log(e));
             })
