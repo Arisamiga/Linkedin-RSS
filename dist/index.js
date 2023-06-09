@@ -10382,7 +10382,7 @@ function initiateImageUpload(accessToken, ownerId) {
 }
 
 // Upload image to LinkedIn
-function uploadImageLinkedin(accessToken, embedImage, ownerId) {
+function uploadImageLinkedin(accessToken, image, ownerId) {
   return new Promise((resolve, reject) => {
     initiateImageUpload(accessToken, ownerId)
       .then((r) => {
@@ -10392,17 +10392,17 @@ function uploadImageLinkedin(accessToken, embedImage, ownerId) {
         const path = "/" + uploadTargetParts.slice(3).join("/");
 
         const imageID = JSON.parse(r.body).value.image;
-        const method = "POST";
+        const method = "PUT";
         const headers = {
           Authorization: "Bearer " + accessToken,
           "cache-control": "no-cache",
           "X-Restli-Protocol-Version": "2.0.0",
-          "Content-Type": "image/png",
-          "x-li-format": "json",
-          "Content-Length": Buffer.byteLength(embedImage),
+          "Content-Type": "application/octet-stream",
+          "Content-Length": Buffer.byteLength(image),
           "LinkedIn-Version": "202305",
         };
-        _request(method, hostname, path, headers, embedImage)
+
+        _request(method, hostname, path, headers, image)
           .then((e) => {
             console.log(e);
             if (e.status !== 201) {
