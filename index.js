@@ -140,6 +140,7 @@ function postShare(
       body.content = {
         media: {
           title: blogTitle,
+          altText: "Image",
           id: shareThumbnailUrl,
         },
       };
