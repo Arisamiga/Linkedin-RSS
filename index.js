@@ -66,7 +66,7 @@ function uploadImageLinkedin(accessToken, image, ownerId) {
         const path = "/" + uploadTargetParts.slice(3).join("/");
 
         const imageID = JSON.parse(r.body).value.image;
-        const method = "POST";
+        const method = "PUT";
         const headers = {
           Authorization: "Bearer " + accessToken,
           "cache-control": "no-cache",
