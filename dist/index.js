@@ -10392,10 +10392,9 @@ function uploadImageLinkedin(accessToken, image, ownerId) {
         const path = "/" + uploadTargetParts.slice(3).join("/");
 
         const imageID = JSON.parse(r.body).value.image;
-        const method = "PUT";
+        const method = "POST";
         const headers = {
           Authorization: "Bearer " + accessToken,
-          "cache-control": "no-cache",
           "X-Restli-Protocol-Version": "2.0.0",
           "Content-Type": "multipart/form-data",
           "Content-Length": Buffer.byteLength(image),
