@@ -10397,7 +10397,7 @@ function uploadImageLinkedin(accessToken, image, ownerId) {
           Authorization: "Bearer " + accessToken,
           "cache-control": "no-cache",
           "X-Restli-Protocol-Version": "2.0.0",
-          "Content-Type": "image/png",
+          "Content-Type": "multipart/form-data",
           "Content-Length": Buffer.byteLength(image),
           "LinkedIn-Version": "202305",
         };
