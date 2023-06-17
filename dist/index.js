@@ -10483,6 +10483,7 @@ function postShare(
 
     _request(method, hostname, path, headers, JSON.stringify(body))
       .then((r) => {
+        console.log(r);
         resolve(r);
       })
       .catch((e) => reject(e));
