@@ -13,7 +13,7 @@ const embedImage = core.getInput("embed_image");
 function getLinkedinId(accessToken) {
   return new Promise((resolve, reject) => {
     const hostname = "api.linkedin.com";
-    const path = "/v2/me";
+    const path = "/v2/userinfo";
     const method = "GET";
     const headers = {
       Authorization: "Bearer " + accessToken,
@@ -23,7 +23,7 @@ function getLinkedinId(accessToken) {
     const body = "";
     _request(method, hostname, path, headers, body)
       .then((r) => {
-        resolve(JSON.parse(r.body).id);
+        resolve(JSON.parse(r.body).sub);
       })
       .catch((e) => reject(e));
   });
