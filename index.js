@@ -23,7 +23,18 @@ function getLinkedinId(accessToken) {
     const body = "";
     _request(method, hostname, path, headers, body)
       .then((r) => {
-        resolve(JSON.parse(r.body).sub);
+        // Check if sub has anything or else call /v2/me
+        if (JSON.parse(r.body).sub) return resolve(JSON.parse(r.body).sub);
+        // If sub is empty, call /v2/me
+        const hostname = "api.linkedin.com";
+        const path = "/v2/me";
+        const method = "GET";
+
+        _request(method, hostname, path, headers, body)
+          .then((r) => {
+            resolve(JSON.parse(r.body).id);
+          })
+          .catch((e) => reject(e));
       })
       .catch((e) => reject(e));
   });
