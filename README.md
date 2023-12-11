@@ -52,12 +52,12 @@ Register the app in [LinkedIn Developer Network](https://developer.linkedin.com/
 #
 
 -   Once you made your Application go to your App and go to "Products"
--   From there Select "Share on LinkedIn" and "Sign In with LinkedIn" and "Request Access" For both of them
+-   From there Select "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect" and "Request Access" For both of them
 
 #
 
 -   Once you have added your Products go to https://www.linkedin.com/developers/tools/oauth/
--   Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `r_liteprofile`, `w_member_social` scopes selected.
+-   Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `openid`, `profile` and `w_member_social` scopes selected.
 -   Press "Request Access Token" and you will be asked to login. After Successfully logging in you will be given your Access Token.
 
 # Notices
