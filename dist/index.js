@@ -10339,7 +10339,7 @@ const embedImage = core.getInput("embed_image");
 function getLinkedinId(accessToken) {
   return new Promise((resolve, reject) => {
     const hostname = "api.linkedin.com";
-    const path = "/v2/me";
+    const path = "/v2/userinfo";
     const method = "GET";
     const headers = {
       Authorization: "Bearer " + accessToken,
@@ -10349,7 +10349,18 @@ function getLinkedinId(accessToken) {
     const body = "";
     _request(method, hostname, path, headers, body)
       .then((r) => {
-        resolve(JSON.parse(r.body).id);
+        // Check if sub has anything or else call /v2/me
+        if (JSON.parse(r.body).sub) return resolve(JSON.parse(r.body).sub);
+        // If sub is empty, call /v2/me
+        const hostname = "api.linkedin.com";
+        const path = "/v2/me";
+        const method = "GET";
+
+        _request(method, hostname, path, headers, body)
+          .then((r) => {
+            resolve(JSON.parse(r.body).id);
+          })
+          .catch((e) => reject(e));
       })
       .catch((e) => reject(e));
   });
