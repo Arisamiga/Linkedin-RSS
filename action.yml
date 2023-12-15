@@ -11,6 +11,9 @@ inputs:
   embed_image: # Url of embed image
     description: "Url Of image to be used as a embed image on the post"
     required: false
+  last_post_path: # Path to the file that stores the last post (Default: .github/.lastPost.txt)
+    description: "Path to the file that stores the last post"
+    required: false
 runs:
   using: "node16"
   main: "dist/index.js"

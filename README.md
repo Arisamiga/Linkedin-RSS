@@ -34,6 +34,7 @@ jobs:
           feed_list: # Url of RSS
           ln_access_token: # Url of LinkedIn Access Token
           embed_image: # Url of embed image
+          last_post_path: # Path to last post file
 ```
 
 Add on the above `feed_list` your own RSS feed URL.
@@ -41,6 +42,8 @@ Add on the above `feed_list` your own RSS feed URL.
 Add on the above `ln_access_token` your LinkedIn Access Token.
 
 (Optional) Add a url of a image on `embed_image` that you would like to use as a image in your embed
+
+(Optional) Add a path to a file on `last_post_path` that you would like to use as a file to store the last post (Default is ".github/.lastPost.txt")
 
 ## How to get your LinkedIn Access Token
 
