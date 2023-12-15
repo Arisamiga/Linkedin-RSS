@@ -10139,6 +10139,14 @@ module.exports = require("assert");
 
 /***/ }),
 
+/***/ 2081:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("child_process");
+
+/***/ }),
+
 /***/ 6113:
 /***/ ((module) => {
 
@@ -10334,6 +10342,7 @@ const https = __nccwpck_require__(5687);
 const accessToken = core.getInput("ln_access_token");
 const feedList = core.getInput("feed_list");
 const embedImage = core.getInput("embed_image");
+const lastPostPath = core.getInput("last_post_path");
 
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
@@ -10365,6 +10374,50 @@ function getLinkedinId(accessToken) {
       .catch((e) => reject(e));
   });
 }
+
+// Check if post has already been published
+function wasPostPublished(feed) {
+    // Read .lastPost file in .github/workflows/ to check if the post has been posted
+    const fs = __nccwpck_require__(7147);
+    const path = __nccwpck_require__(1017);
+    let lastPost = path.join(
+      process.env.GITHUB_WORKSPACE,
+      ".github",
+      ".lastPost.txt"
+    );
+
+    if (lastPostPath) {
+      lastPost = path.join(process.env.GITHUB_WORKSPACE, lastPostPath);
+    }
+
+    let lastPostContent = "";
+    try {
+      lastPostContent = fs.readFileSync(lastPost, "utf8");
+    }
+    catch (e) {
+      console.log("No .lastPost.txt file found");
+    }
+    // If the post has been posted, skip
+    if (lastPostContent === feed.items[0].link) {
+      console.log("Post already posted");
+      return true;
+    }
+    // If the post has not been posted, post
+    fs.writeFileSync(lastPost, feed.items[0].link);
+
+
+    // push the file changes to repository
+    const { exec } = __nccwpck_require__(2081);
+    exec("git config --global user.email " + process.env.GITHUB_ACTOR + "@users.noreply.github.com");
+    exec("git config --global user.name " + process.env.GITHUB_ACTOR);
+    exec("git add .");
+    exec("git commit -m 'Update Last Post File'");
+    exec("git push");
+
+
+    return false;
+}
+
 
 // Publish content on LinkedIn
 function postShare(
@@ -10458,6 +10511,13 @@ try {
     console.log(feed.title);
     getLinkedinId(accessToken)
       .then((ownerId) => {
+
+        if (wasPostPublished(feed)){
+          core.warning('Post was already published');
+          core.setFailed('Ending job because post was already published');
+          return;
+        }
+
         postShare(
           accessToken,
           ownerId,
