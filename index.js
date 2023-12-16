@@ -10,6 +10,10 @@ const feedList = core.getInput("feed_list");
 const embedImage = core.getInput("embed_image");
 const lastPostPath = core.getInput("last_post_path");
 
+const commitUser = core.getInput("commit_user");
+const commitEmail = core.getInput("commit_email");
+const commitMessage = core.getInput("commit_message");
+
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
   return new Promise((resolve, reject) => {
@@ -72,14 +76,31 @@ function wasPostPublished(feed) {
 
   // push the file changes to repository
   const { exec } = require("child_process");
-  exec(
-    "git config --global user.email " +
-      process.env.GITHUB_ACTOR +
-      "@users.noreply.github.com"
-  );
-  exec("git config --global user.name " + process.env.GITHUB_ACTOR);
+
+  if (commitEmail) {
+    exec("git config --global user.email " + commitEmail);
+  } else {
+    exec(
+      "git config --global user.email " +
+        process.env.GITHUB_ACTOR +
+        "@users.noreply.github.com"
+    );
+  }
+
+  if (commitUser) {
+    exec("git config --global user.name " + commitUser);
+  } else {
+    exec("git config --global user.name " + process.env.GITHUB_ACTOR);
+  }
+
   exec("git add .");
-  exec("git commit -m 'Update Last Post File'");
+
+  if (commitMessage) {
+    exec("git commit -m '" + commitMessage + "'");
+  } else {
+    exec("git commit -m 'Update Last Post File'");
+  }
+
   exec("git push");
 
   return false;

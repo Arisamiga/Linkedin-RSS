@@ -5,7 +5,7 @@ inputs:
   feed_list: # Url of RSS
     description: "RSS Link"
     required: true
-  ln_access_token: # Url of LinkedIn Access Token
+  ln_access_token: # LinkedIn Access Token
     description: "LinkedIn Access Token | Can be Generated at (https://www.linkedin.com/developers/tools/oauth/)"
     required: true
   embed_image: # Url of embed image
@@ -13,6 +13,15 @@ inputs:
     required: false
   last_post_path: # Path to the file that stores the last post (Default: .github/.lastPost.txt)
     description: "Path to the file that stores the last post"
+    required: false
+  commit_user: # Username of the commiter
+    description: "Username of commit user"
+    required: false
+  commit_email: # Email of the commiter
+    description: "Email of commit user"
+    required: false
+  commit_message: # Commit message
+    description: "Commit message"
     required: false
 runs:
   using: "node16"
