@@ -10537,8 +10537,10 @@ try {
               core.setFailed(
                 "Failed to post on LinkedIn, please check your access token is valid"
               );
+              return;
             } else if (r.status !== 201) {
               core.setFailed("Failed to post on LinkedIn");
+              return;
             }
             if (!pastPostCheck) {
               pushPastFile();
