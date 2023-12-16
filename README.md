@@ -35,33 +35,38 @@ jobs:
           ln_access_token: # Url of LinkedIn Access Token
           embed_image: # Url of embed image
           last_post_path: # Path to last post file
+          commit_user: # Username of the commiter
+          commit_email: # Email of the commiter
+          commit_message: # Commit message
 ```
 
-Add on the above `feed_list` your own RSS feed URL.
-
-Add on the above `ln_access_token` your LinkedIn Access Token.
-
-(Optional) Add a url of a image on `embed_image` that you would like to use as a image in your embed
-
-(Optional) Add a path to a file on `last_post_path` that you would like to use as a file to store the last post (Default is ".github/.lastPost.txt")
+| Parameter         | Required | Description                                                  | Default                            |
+| ----------------- | -------- | ------------------------------------------------------------ | ---------------------------------- |
+| `feed_list`       | ✓        | Your own RSS feed URL                                        | (No Default URL)                   |
+| `ln_access_token` | ✓        | Your LinkedIn Access Token                                   | (No Default Access Token)          |
+| `embed_image`     | X        | The URL of the image you want to use in the embed.           | (No Default URL)                   |
+| `last_post_path`  | X        | The path to the file you want to use to store the last post. | `.github/.lastPost.txt`            |
+| `commit_user`     | X        | The username of the commiter.                                | `Linkedin-Post-Action`             |
+| `commit_email`    | X        | The email of the commiter.                                   | `linkedin-post-action@example.com` |
+| `commit_message`  | X        | The commit message.                                          | `Update Last Post File`            |
 
 ## How to get your LinkedIn Access Token
 
 Register the app in [LinkedIn Developer Network](https://developer.linkedin.com/)
 
--   Go to LinkedIn Developer Network and create an app;
--   Select `Test University` or `PersonalDev` can be used as the company associated with the app without verification;
+- Go to LinkedIn Developer Network and create an app;
+- Select `Test University` or `PersonalDev` can be used as the company associated with the app without verification;
 
 #
 
--   Once you made your Application go to your App and go to "Products"
--   From there Select "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect" and "Request Access" For both of them
+- Once you made your Application go to your App and go to "Products"
+- From there Select "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect" and "Request Access" For both of them
 
 #
 
--   Once you have added your Products go to https://www.linkedin.com/developers/tools/oauth/
--   Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `openid`, `profile` and `w_member_social` scopes selected.
--   Press "Request Access Token" and you will be asked to login. After Successfully logging in you will be given your Access Token.
+- Once you have added your Products go to https://www.linkedin.com/developers/tools/oauth/
+- Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `openid`, `profile` and `w_member_social` scopes selected.
+- Press "Request Access Token" and you will be asked to login. After Successfully logging in you will be given your Access Token.
 
 # Notices
 
