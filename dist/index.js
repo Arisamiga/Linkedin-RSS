@@ -10384,15 +10384,7 @@ function wasPostPublished(feed) {
   // Read .lastPost file in .github/workflows/ to check if the post has been posted
   const fs = __nccwpck_require__(7147);
   const path = __nccwpck_require__(1017);
-  let lastPost = path.join(
-    process.env.GITHUB_WORKSPACE,
-    ".github",
-    ".lastPost.txt"
-  );
-
-  if (lastPostPath) {
-    lastPost = path.join(process.env.GITHUB_WORKSPACE, lastPostPath);
-  }
+  const lastPost = path.join(process.env.GITHUB_WORKSPACE, lastPostPath);
 
   let lastPostContent = "";
   try {
@@ -10408,36 +10400,22 @@ function wasPostPublished(feed) {
   // If the post has not been posted, post
   fs.writeFileSync(lastPost, feed.items[0].link);
 
+  return false;
+}
+
+function pushPastFile() {
   // push the file changes to repository
   const { exec } = __nccwpck_require__(2081);
 
-  if (commitEmail) {
-    exec("git config --global user.email " + commitEmail);
-  } else {
-    exec(
-      "git config --global user.email " +
-        process.env.GITHUB_ACTOR +
-        "@users.noreply.github.com"
-    );
-  }
+  exec("git config --global user.email " + commitEmail);
 
-  if (commitUser) {
-    exec("git config --global user.name " + commitUser);
-  } else {
-    exec("git config --global user.name " + process.env.GITHUB_ACTOR);
-  }
+  exec("git config --global user.name " + commitUser);
 
   exec("git add .");
 
-  if (commitMessage) {
-    exec("git commit -m '" + commitMessage + "'");
-  } else {
-    exec("git commit -m 'Update Last Post File'");
-  }
+  exec("git commit -m '" + commitMessage + "'");
 
   exec("git push");
-
-  return false;
 }
 
 // Publish content on LinkedIn
@@ -10532,7 +10510,8 @@ try {
     console.log(feed.title);
     getLinkedinId(accessToken)
       .then((ownerId) => {
-        if (wasPostPublished(feed)) {
+        const pastPostCheck = wasPostPublished(feed);
+        if (pastPostCheck) {
           core.warning("Post was already published");
           core.warning("Ending job because post was already published");
           return;
@@ -10554,6 +10533,9 @@ try {
               );
             } else if (r.status !== 201) {
               core.setFailed("Failed to post on LinkedIn");
+            }
+            if (!pastPostCheck) {
+              pushPastFile();
             }
           })
           .catch((e) => console.log(e));
