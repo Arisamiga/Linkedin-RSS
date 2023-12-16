@@ -36,11 +36,15 @@ jobs:
           embed_image: # Url of embed image
 ```
 
-Add on the above `feed_list` your own RSS feed URL.
-
-Add on the above `ln_access_token` your LinkedIn Access Token.
-
-(Optional) Add a url of a image on `embed_image` that you would like to use as a image in your embed
+| Parameter         | Required | Description                                                  | Default                            |
+| ----------------- | -------- | ------------------------------------------------------------ | ---------------------------------- |
+| `feed_list`       | ✓        | Your own RSS feed URL                                        | (No Default URL)                   |
+| `ln_access_token` | ✓        | Your LinkedIn Access Token                                   | (No Default Access Token)          |
+| `embed_image`     | X        | The URL of the image you want to use in the embed.           | (No Default URL)                   |
+| `last_post_path`  | X        | The path to the file you want to use to store the last post. | `.github/.lastPost.txt`            |
+| `commit_user`     | X        | The username of the commiter.                                | `Linkedin-Post-Action`             |
+| `commit_email`    | X        | The email of the commiter.                                   | `linkedin-post-action@example.com` |
+| `commit_message`  | X        | The commit message.                                          | `Update Last Post File`            |
 
 ## How to get your LinkedIn Access Token
 

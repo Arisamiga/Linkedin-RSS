@@ -8,6 +8,11 @@ const https = require("https");
 const accessToken = core.getInput("ln_access_token");
 const feedList = core.getInput("feed_list");
 const embedImage = core.getInput("embed_image");
+const lastPostPath = core.getInput("last_post_path");
+
+const commitUser = core.getInput("commit_user");
+const commitEmail = core.getInput("commit_email");
+const commitMessage = core.getInput("commit_message");
 
 // Get LinkedIn ID, i.e. ownerId
 function getLinkedinId(accessToken) {
@@ -38,6 +43,51 @@ function getLinkedinId(accessToken) {
       })
       .catch((e) => reject(e));
   });
+}
+
+// Check if post has already been published
+function wasPostPublished(feed) {
+  // Read .lastPost file in .github/workflows/ to check if the post has been posted
+  const fs = require("fs");
+  const path = require("path");
+  const lastPost = path.join(process.env.GITHUB_WORKSPACE, lastPostPath);
+
+  let lastPostContent = "";
+  try {
+    lastPostContent = fs.readFileSync(lastPost, "utf8");
+  } catch (e) {
+    console.log("No .lastPost.txt file found");
+
+    // Create directories if they dont exist
+    fs.mkdirSync(path.dirname(lastPost), { recursive: true });
+
+    // Create file if it doesn't exist
+    fs.writeFileSync(lastPost, "");
+  }
+  // If the post has been posted, skip
+  if (lastPostContent === feed.items[0].link) {
+    console.log("Post already posted");
+    return true;
+  }
+  // If the post has not been posted, post
+  fs.writeFileSync(lastPost, feed.items[0].link);
+
+  return false;
+}
+
+function pushPastFile() {
+  // push the file changes to repository
+  const { exec } = require("child_process");
+
+  exec("git config --global user.email " + commitEmail);
+
+  exec("git config --global user.name " + commitUser);
+
+  exec("git add .");
+
+  exec("git commit -m '" + commitMessage + "'");
+
+  exec("git push");
 }
 
 // Publish content on LinkedIn
@@ -132,6 +182,13 @@ try {
     console.log(feed.title);
     getLinkedinId(accessToken)
       .then((ownerId) => {
+        const pastPostCheck = wasPostPublished(feed);
+        if (pastPostCheck) {
+          core.warning("Post was already published");
+          core.warning("Ending job because post was already published");
+          return;
+        }
+
         postShare(
           accessToken,
           ownerId,
@@ -146,8 +203,13 @@ try {
               core.setFailed(
                 "Failed to post on LinkedIn, please check your access token is valid"
               );
+              return;
             } else if (r.status !== 201) {
               core.setFailed("Failed to post on LinkedIn");
+              return;
+            }
+            if (!pastPostCheck) {
+              pushPastFile();
             }
           })
           .catch((e) => console.log(e));
