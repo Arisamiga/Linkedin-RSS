@@ -34,10 +34,6 @@ jobs:
           feed_list: # Url of RSS
           ln_access_token: # Url of LinkedIn Access Token
           embed_image: # Url of embed image
-          last_post_path: # Path to last post file
-          commit_user: # Username of the commiter
-          commit_email: # Email of the commiter
-          commit_message: # Commit message
 ```
 
 | Parameter         | Required | Description                                                  | Default                            |
