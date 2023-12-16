@@ -57,6 +57,10 @@ function wasPostPublished(feed) {
     lastPostContent = fs.readFileSync(lastPost, "utf8");
   } catch (e) {
     console.log("No .lastPost.txt file found");
+
+    // Create directories if they dont exist
+    fs.mkdirSync(path.dirname(lastPost), { recursive: true });
+
     // Create file if it doesn't exist
     fs.writeFileSync(lastPost, "");
   }
