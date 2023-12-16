@@ -10391,6 +10391,8 @@ function wasPostPublished(feed) {
     lastPostContent = fs.readFileSync(lastPost, "utf8");
   } catch (e) {
     console.log("No .lastPost.txt file found");
+    // Create file if it doesn't exist
+    fs.writeFileSync(lastPost, "");
   }
   // If the post has been posted, skip
   if (lastPostContent === feed.items[0].link) {
