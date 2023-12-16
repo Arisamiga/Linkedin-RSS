@@ -50,19 +50,19 @@ jobs:
 
 Register the app in [LinkedIn Developer Network](https://developer.linkedin.com/)
 
-- Go to LinkedIn Developer Network and create an app;
-- Select `Test University` or `PersonalDev` can be used as the company associated with the app without verification;
+-   Go to LinkedIn Developer Network and create an app;
+-   Select `Test University` or `PersonalDev` can be used as the company associated with the app without verification;
 
 #
 
-- Once you made your Application go to your App and go to "Products"
-- From there Select "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect" and "Request Access" For both of them
+-   Once you made your Application go to your App and go to "Products"
+-   From there Select "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect" and "Request Access" For both of them
 
 #
 
-- Once you have added your Products go to https://www.linkedin.com/developers/tools/oauth/
-- Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `openid`, `profile` and `w_member_social` scopes selected.
-- Press "Request Access Token" and you will be asked to login. After Successfully logging in you will be given your Access Token.
+-   Once you have added your Products go to https://www.linkedin.com/developers/tools/oauth/
+-   Select "Create a new access token" and click "Create Token" Select your app and make sure you have the `openid`, `profile` and `w_member_social` scopes selected.
+-   Press "Request Access Token" and you will be asked to login. After Successfully logging in you will be given your Access Token.
 
 # Notices
 
