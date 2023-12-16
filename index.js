@@ -179,7 +179,7 @@ try {
       .then((ownerId) => {
         if (wasPostPublished(feed)) {
           core.warning("Post was already published");
-          core.setFailed("Ending job because post was already published");
+          core.warning("Ending job because post was already published");
           return;
         }
 
