@@ -189,6 +189,14 @@ try {
           return;
         }
 
+        // Add Seperation between title and tags
+        feed.items[0].title += "\n\n";
+
+        // Add tags to title.
+        feed.items[0].tags.split(",").forEach((tag) => {
+          feed.items[0].title += "#" + tag.trim() + " ";
+        });
+
         postShare(
           accessToken,
           ownerId,

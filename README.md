@@ -1,5 +1,7 @@
 # Linkedin-RSS
 
+## **Note:** This is a Branch for my own blog feed with some customizations to suit my own blog. To use this action for your own blog, please use the "master" branch. or you can fork this repository and make your own changes.
+
 Post the latest post from your RSS Feed to your LinkedIn Profile
 
 <a href="https://github.com/Arisamiga/Linkedin-RSS/issues">
