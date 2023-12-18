@@ -177,7 +177,11 @@ function _request(method, hostname, path, headers, body) {
 
 try {
   const parse = async (url) => {
-    const feed = await new RSSParser().parseURL(url);
+    const feed = await new RSSParser({
+      customFields: {
+        item: ["tags"],
+      },
+    }).parseURL(url);
 
     console.log(feed.title);
     getLinkedinId(accessToken)
