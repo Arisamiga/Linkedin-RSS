@@ -83,7 +83,7 @@ function pushPastFile() {
 
   exec("git config --global user.name " + commitUser);
 
-  exec("git add .");
+  exec("git add " + lastPostPath);
 
   exec("git commit -m '" + commitMessage + "'");
 
